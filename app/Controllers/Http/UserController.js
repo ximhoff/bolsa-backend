@@ -1,5 +1,5 @@
 'use strict'
-const Users = use('App/Models/User');
+const Usuarios = use('App/Models/User');
 
 class UserController {
 
@@ -10,10 +10,21 @@ class UserController {
       if(!usuarioAutorizado) {
         return response.status(401).send({ code: error.code, message: error.message});
       }
-      const user = await Users.findBy('email', email);
-      const token = await auth.generate(user, { profile: user.profile_id });
+      const users = await Usuarios.findBy('email', email);
+      const token = await auth.generate(users, { profile: users.profile_id });
 
       return token;
+    } catch (error) {
+      return response.status(500).send({ code: error.code, message: error.message});
+    }
+  }
+  
+  async criar({ request, response }) {
+    try {
+      const data = request.only(['nome', 'email', 'cpf', 'password', 'cargo', 'perfil_id', 'unidade_armazenadora_id']);
+      const usuario = await Usuarios.create(data);
+
+      return usuario;
     } catch (error) {
       return response.status(500).send({ code: error.code, message: error.message});
     }

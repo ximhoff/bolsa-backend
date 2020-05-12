@@ -22,4 +22,5 @@ Route.get('/', () => {
 
 Route.group(() => {
   Route.post('/login/', 'UserController.autenticacao');
-}).prefix('usuario');
+  Route.post('/criar/', 'UserController.criar');
+}).prefix('usuarios');
