@@ -3,7 +3,11 @@ const Usuarios = use('App/Models/User');
 
 class UserController {
 
-  async autenticacao({ request, response, auth }) {
+  async index () {
+    return await Usuarios.all();
+  }
+
+  async autenticacao ({ request, response, auth }) {
     try {
       const { email, senha } = request.all();
       const usuarioAutorizado = await auth.attempt(email, senha);
@@ -19,7 +23,7 @@ class UserController {
     }
   }
   
-  async criar({ request, response }) {
+  async criar ({ request, response }) {
     try {
       const data = request.only(['nome', 'email', 'cpf', 'password', 'cargo', 'perfil_id', 'unidade_armazenadora_id']);
       const usuario = await Usuarios.create(data);
