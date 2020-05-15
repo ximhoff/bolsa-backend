@@ -15,7 +15,7 @@ class UserController {
         return response.status(401).send({ code: error.code, message: error.message});
       }
       const users = await Usuarios.findBy('email', email);
-      const token = await auth.generate(users, { profile: users.profile_id });
+      const token = await auth.generate(users, { profile: users.profile_id, id: users.id, nome: users.nome });
 
       return token;
     } catch (error) {
@@ -32,6 +32,10 @@ class UserController {
     } catch (error) {
       return response.status(500).send({ code: error.code, message: error.message});
     }
+  }
+
+  async buscarUsuario ({ params }) {
+    return Usuarios.query().where('id', params.id).first();
   }
 
 }
