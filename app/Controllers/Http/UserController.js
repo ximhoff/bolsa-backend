@@ -35,7 +35,8 @@ class UserController {
   }
 
   async buscarUsuario ({ params }) {
-    return Usuarios.query().where('id', params.id).first();
+    let usuario = await Usuarios.query().where('id', params.id).first();
+    return usuario;
   }
 
 }
