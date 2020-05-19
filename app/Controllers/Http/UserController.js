@@ -59,9 +59,19 @@ class UserController {
       usuario.cargo = cargo;
       usuario.perfil_id = perfil_id;
       usuario.unidade_armazenadora_id = unidade_armazenadora_id;
-      usuario.save(); 
+      await usuario.save(); 
       return usuario
     } catch  (error) {
+      return response.status(500).send({ code: error.code, message: error.message});
+    }
+  }
+
+  async deletar ({ params, response }) {
+    try {
+      const usuario = await Usuarios.find(params.id);
+      await usuario.delete();
+      return usuario;
+    } catch (error) {
       return response.status(500).send({ code: error.code, message: error.message});
     }
   }

@@ -8,6 +8,7 @@ Route.group(() => {
   Route.post('/login/', 'UserController.autenticacao');
   Route.post('/criar/', 'UserController.criar');
   Route.put('/alterar/:id', 'UserController.alterar');
+  Route.delete('/deletar/:id', 'UserController.deletar');
 }).prefix('usuarios');
 
 Route.group(() => {
