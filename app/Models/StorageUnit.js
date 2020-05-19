@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class StorageUnit extends Model {
+
+    static get foreignKey() {
+        return 'unidade_armazenadora_id';
+    }
+
 }
 
 module.exports = StorageUnit

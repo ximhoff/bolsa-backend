@@ -34,9 +34,19 @@ class UserController {
     }
   }
 
-  async buscarUsuario ({ params }) {
-    let usuario = await Usuarios.query().where('id', params.id).first();
-    return usuario;
+  async buscarUsuario ({ params, response }) {
+    try {
+      let usuario = await Usuarios.query()
+        .where('id', params.id)
+        .with('perfil')
+        .with('unidade')
+        .first();
+      const teste = usuario.toJSON();
+      console.log(teste);
+      return usuario;
+    } catch (error) {
+      return response.status(500).send({ code: error.code, message: error.message});
+    }
   }
 
 }
