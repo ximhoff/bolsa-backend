@@ -7,6 +7,7 @@ Route.group(() => {
   Route.get('/:id', 'UserController.buscarUsuario');
   Route.post('/login/', 'UserController.autenticacao');
   Route.post('/criar/', 'UserController.criar');
+  Route.put('/alterar/:id', 'UserController.alterar');
 }).prefix('usuarios');
 
 Route.group(() => {

@@ -41,10 +41,27 @@ class UserController {
         .with('perfil')
         .with('unidade')
         .first();
-      const teste = usuario.toJSON();
-      console.log(teste);
       return usuario;
     } catch (error) {
+      return response.status(500).send({ code: error.code, message: error.message});
+    }
+  }
+
+  async alterar({ request, response, params }) {
+    try {
+      const id = params.id;
+      const { nome, email, cpf, password, cargo, perfil_id, unidade_armazenadora_id } = request.only(['nome', 'email', 'cpf', 'password', 'cargo', 'perfil_id', 'unidade_armazenadora_id']);
+      const usuario = await Usuarios.find(id);
+      usuario.nome = nome;
+      usuario.email = email;
+      usuario.cpf = cpf;
+      usuario.password = password;
+      usuario.cargo = cargo;
+      usuario.perfil_id = perfil_id;
+      usuario.unidade_armazenadora_id = unidade_armazenadora_id;
+      usuario.save(); 
+      return usuario
+    } catch  (error) {
       return response.status(500).send({ code: error.code, message: error.message});
     }
   }
